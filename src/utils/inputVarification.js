@@ -1,5 +1,10 @@
 import React from 'react'
 
+// const regexMove = /^move\(\)$/;
+// const regexLeft = /^left\(\)$/;
+// const regexReport = /^report\(\)$/;
+// const regexPlace = /^place\(\d\s?,\s?\d,\s?'?(SOUTH|NORTH|WEST|EAST)'?\)$/;
+
 export const isValidPlace = (input) => {
     const regex = /^\(\d\s?,\s?\d,\s?'?(SOUTH|NORTH|WEST|EAST)'?\)$/;
     const parenthesesValue = '(' + input.split('(')[1];
