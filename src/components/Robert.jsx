@@ -27,16 +27,105 @@ const Robot = () => {
         if (!isPlaced) {
             console.log('Robot is not placed yet');
             return;
+
         }
 
         switch (direction) {
             case DIRECTIONS.NORTH:
-
+                if (isValidPlace(x, y+1)) {
+                    setY(y+1);
+                    console.log(`Moved the robot to (${x}, ${y + 1})`);
+                } else {
+                    console.log("Cannot move the robot, it will fall off the table");
+                }
+                break;
+            case DIRECTIONS.EAST:
+                if (isValidPlace(x + 1, y)) {
+                    setX(x + 1);
+                    console.log(`Moved the robot to (${x + 1}, ${y})`);
+                } else {
+                    console.log("Cannot move the robot, it will fall off the table");
+                }
+                break;
+            case DIRECTIONS.SOUTH:
+                if (isValidPlace(x, y - 1)) {
+                    setY(y - 1);
+                    console.log(`Moved the robot to (${x}, ${y - 1})`);
+                } else {
+                    console.log("Cannot move the robot, it will fall off the table");
+                }
+                break;
+            case DIRECTIONS.WEST:
+                if (isValidPlace(x - 1, y)) {
+                    setX(x - 1);
+                    console.log(`Moved the robot to (${x - 1}, ${y})`);
+                } else {
+                    console.log("Cannot move the robot, it will fall off the table");
+                }
+                break;
+            default:
+            return ACTIONS.INVALID;
         }
     }
 
     const left = () => {
+        if (!isPlaced) {
+          console.log("Robot is not placed yet");
+          return;
+        }
+    
+        switch (direction) {
+            case DIRECTIONS.NORTH:
+                setDirection(DIRECTIONS.WEST);
+                console.log("Rotated the robot to face", DIRECTIONS.WEST);
+                break;
+            case DIRECTIONS.EAST:
+                setDirection(DIRECTIONS.NORTH);
+                console.log("Rotated the robot to face", DIRECTIONS.NORTH);
+                break;
+            case DIRECTIONS.SOUTH:
+                setDirection(DIRECTIONS.EAST);
+                console.log("Rotated the robot to face", DIRECTIONS.EAST);
+                break;
+            case DIRECTIONS.WEST:
+                setDirection(DIRECTIONS.SOUTH);
+                console.log("Rotated the robot to face", DIRECTIONS.SOUTH);
+                break;
+            default:
+                return ACTIONS.INVALID;
+        }
+      };
 
+    const right = () => {
+        if (!isPlaced) {
+            console.log("Robot is not placed yet");
+            return;
+        }
+
+        switch (direction) {
+            case DIRECTIONS.NORTH:
+                setDirection(DIRECTIONS.EAST);
+                console.log("Rotated the robot to face", DIRECTIONS.EAST);
+                break;
+            case DIRECTIONS.EAST:
+                setDirection(DIRECTIONS.SOUTH);
+                console.log("Rotated the robot to face", DIRECTIONS.SOUTH);
+                break;
+            case DIRECTIONS.SOUTH:
+                setDirection(DIRECTIONS.WEST);
+                console.log("Rotated the robot to face", DIRECTIONS.WEST);
+                break;
+            case DIRECTIONS.WEST:
+                setDirection(DIRECTIONS.NORTH);
+                console.log("Rotated the robot to face", DIRECTIONS.NORTH);
+                break;
+            default:
+                return ACTIONS.INVALID;
+        }
+    };
+
+    const report = () => {
+        return (setX, setY, setDirection)
     }
 }
 

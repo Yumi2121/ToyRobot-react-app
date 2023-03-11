@@ -6,10 +6,10 @@ const ChooseAction = (input) => {
 
     switch (actionName.toLowerCase()) {
         case 'PLACE':
-            return ACTIONS.PLACE;
+            return ACTIONS.PLACE
             break;
         case 'MOVE':
-            return ACTIONS.MOVE;
+            return ACTIONS.MOVE
             break;
         case 'LEFT':
             return ACTIONS.LEFT;

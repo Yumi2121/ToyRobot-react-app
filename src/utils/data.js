@@ -3,6 +3,7 @@ export const DIRECTIONS = {
     EAST: 'EAST',
     SOUTH: 'SOUTH',
     WEST: 'WEST',
+    INVALID: 'INVALID'
   };
 
 export const ACTIONS = {
