@@ -14,21 +14,22 @@ const Index = () => {
     // verifying all five commands to check if they are valid (through Regex) 
     const verifyCommand = (command) => {
         if (command.match(placeCommandMatch)) {
-            setIsPlaced(true);
             console.log(`Placed the robot at current position ${currentPosition}`);
             return 'place';
         }
 
         if (!isPlaced) {
-            setUserMessage("Robot is not placed yet.")
+            setUserMessage("Robot is not placed yet. Please use valid place command firstly")
         } else if (command.match(moveCommandMatch)) {
             return 'move'
         } else if (command.match(leftCommandMatch)) {
             return 'left'
         } else if (command.match(rightCommandMatch)) {
             return 'right'
+        } else if (command.match(reportCommandMatch)) {
+            return 'report'
         } else 
-            setUserMessage("Invalid command, please re-write the command!")
+            setUserMessage("Invalid command, please input the command with correct format!")
     }
 
     // if command is place, destructure the command get value of x, y and direction
@@ -36,10 +37,10 @@ const Index = () => {
     const placeCommandProps = (command) => {
         console.log(`inputValue=${inputValue}`)
         // remove the white space and "()" in (0, 0, 'NORTH') => {'0', '0', 'NORTH'}
-        const props = command.split(/[\s,()']+/).slice(1, -1);
+        const props = command.substring(6,command.length-1).split(',');
         return {
             x: parseInt(props[0]),
-            y: parseInt(props[1]),
+            y: parseInt(props[1].trim()),
             direction: props[2].trim(),     
         }   
        
@@ -50,12 +51,16 @@ const Index = () => {
         const {x, y, direction} = placeCommandProps(command);
         if (x > gridSize -1 || y > gridSize -1 || x<0 || y<0) {
             setUserMessage(`Invalid place, position was outside the table, please choose the valid posion within ${gridSize} X ${gridSize} unit`)
+            return;
         }
+        setCommandList(prevState => [...prevState, inputValue]);
         setCurrentPosition({
             x: x,
             y: y,
-            direction: direction,
+            direction: direction.replace(/[']/g,""),
         })
+        setIsPlaced(true);
+        setUserMessage('run successfully');
     }
    
     // handle move 
@@ -63,15 +68,19 @@ const Index = () => {
         switch(currentPosition.direction) {
             case 'NORTH':
                 currentPosition.y < gridSize -1 && setCurrentPosition({...currentPosition, y: currentPosition.y + 1})
+                setUserMessage('run successfully');
                 break;
             case 'SOUTH':
                 currentPosition.y > 0 && setCurrentPosition({...currentPosition, y: currentPosition.y - 1})
+                setUserMessage('run successfully');
                 break;
             case 'EAST':
                 currentPosition.x < gridSize - 1 && setCurrentPosition({...currentPosition, x: currentPosition.x + 1})
+                setUserMessage('run successfully');
                 break;
             case 'WEST':
                 currentPosition.x > 0 && setCurrentPosition({...currentPosition, x: currentPosition.x - 1})
+                setUserMessage('run successfully');
                 break;
             default:
                 setUserMessage("Cannot move the robot, it will fall off the table!")
@@ -119,26 +128,28 @@ const Index = () => {
 
     // hadle all valid command form input
     const handleInputCommand = (command) => {
-        switch(verifyCommand) {
+        switch(verifyCommand(command)) {
             case 'place':
                 handlePlaceRob(command);
-                setCommandList(prevState => [{...prevState, inputValue}])
                 break;
             case 'move':
                 handleMove();
-                setCommandList(prevState => [{...prevState, inputValue}])
+                setCommandList(prevState => [...prevState, inputValue])
+                // ?????
                 break;
             case 'left':
                 handleDirecTurn('left')
-                setCommandList(prevState => [{...prevState, inputValue}])
+                setCommandList(prevState => [...prevState, inputValue])
+                setUserMessage('run successfully');
                 break;
             case 'right':
                 handleDirecTurn('right')
-                setCommandList(prevState => [{...prevState, inputValue}])
+                setCommandList(prevState => [...prevState, inputValue])
+                setUserMessage('run successfully');
                 break;
             case 'report':
-                currentPosition();
-                setCommandList(prevState => [{...prevState, inputValue}])
+                setUserMessage(`${currentPosition.x}, ${currentPosition.y}, ${currentPosition.direction}`);
+                setCommandList(prevState => [...prevState, inputValue])
                 break;
             default:
                 return;       
@@ -152,7 +163,6 @@ const Index = () => {
         handleInputCommand(inputValue)
     }
 
-
     return (
         <>
         <form className='form' onSubmit={handleSubmit}>
@@ -160,13 +170,11 @@ const Index = () => {
                 Enter input:
                 <input type="text" value={inputValue} onChange={(e) => {setInptValue(e.target.value)}} />
             </label>
-    
-            {/* <textarea onChange={handleChange} name='commands' type='text' placeholder='commands list here' /> */}
             <Button className='btn-submit-form' variant="primary" type='submit'>Submit</Button>
         </form>
 
         <div className="commandList">
-        {commandList.map((item) => 
+        {commandList.map((item) =>
             <div key={item}>{item}</div>
         )}
         </div>
@@ -174,11 +182,6 @@ const Index = () => {
         <p style={{ color: "white" }}>
             <b>{userMessage}</b>
         </p>
-        
-
-        {/* <div className="grid">
-            <canvas id='gridTable' ref={canvasRef} width={500} height={500}></canvas>
-        </div> */}
         </>
     )
 }

@@ -4,7 +4,7 @@ import Index from './page';
 function App() {
   return (
     <div className="App">
-      Toy Robert
+      Toy Robot
       <Index />
     </div>
   );

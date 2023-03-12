@@ -35,7 +35,7 @@ We felt a weather app would provide more of a learning curve and aswell as allow
 
 This web app will serve two main purposes. The first is to allow vehicle owners to book a safe parking spot near a desired location for a certain period of time in the Melbourne, Australia. The other is to allow the manager of the company to manage these parking spots and bookings.
 
-Let's call the Toy Robert "Tony"
+Let's call the Toy Robot "Tony"
 
 
 
