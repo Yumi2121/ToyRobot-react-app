@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# Toy-Robert React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Yumi Yu
 
-## Available Scripts
+------
 
-In the project directory, you can run:
+💎 Deployed App: http://www.
 
-### `npm start`
+🖥 GitHub Repo: https://github.com/Yumi2121/ToyRobert
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Installation Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To use the app locally, please follow the below instructions.
 
-### `npm run build`
+- Create a directory in a suitable location on your machine named and `$ cd` into it.
+- Whilst in the directory, from bash CLI, clone the server repo `$ git clone https://github.com/Yumi2121/ToyRobert.git`.
+- CD into the api folder `$ cd toy-robert `.
+- Install num packages with `$ npm install`.
+- From bash run `$ npm start` to start the local server.
+- The server will run on local host port 3000.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## **Project Description**
 
-### `npm run eject`
+As part of the Coder Academy Hackathon, we decided to build a weather app. This was an idea that won against creating a pomodoro type app that allowed the user to assign timed tasks for the day and a website show-casing student coders.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+We felt a weather app would provide more of a learning curve and aswell as allow the consideration and implementation of a greater number of features.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Purpose
 
-## Learn More
+This web app will serve two main purposes. The first is to allow vehicle owners to book a safe parking spot near a desired location for a certain period of time in the Melbourne, Australia. The other is to allow the manager of the company to manage these parking spots and bookings.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Let's call the Toy Robert "Tony"
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Functionality / Features
 
-### Advanced Configuration
+Not all features of the site will be available to all users of the web app. This is due to the different types of users expected to use the application. Without logging in all users are able to:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Place** Tony 
+- **Move** Tony within a grid of 5x5 units
 
-### Deployment
+- Rotate Tony to the **Left**
+- Rotate Tony to the **Right**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Report** Tony's position 
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Future Development:
+
+As it stands some features were not included due to time constraints and in future we would love to add them. These features are:
+
+- Re-booking previous locations
+
+- Leaving & Viewing Ratings
+
+- Google Login
+
+- View a summary of all daily bookings
+
+  
+
+## Tech Stack
+
+**Front-end**: REACT.JS, JavaScript, Bootstrap and Style-Component
+
+**Deployment**: Back-end: AWS Front-end: AWS
+
+**Project-management tools**: Trello
+
+**DevOps**: Git, Github, VS Code
+
+
+
+## Testing
+
+The application has been tested in Chrome on Mac OS.
+
+During development, the applications underwent few unit function tests due to time constraints. However, it is recommended that the production version of the application undergo both automated and manual testing using tools such as JEST and Cypress.
+
+
+
+## Project management
+
+We have selected Trello as our planning methodology as it is easier to visualize tasks and allows us to manage the project by separating the tasks into cards and prioritizing major ones. Another tool used is Discord which is a voice, video, and text communication app. This is essential as it is essential to keep contact with each other.
+

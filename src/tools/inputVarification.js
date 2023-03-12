@@ -5,7 +5,7 @@ import React from 'react'
 // const regexReport = /^report\(\)$/;
 // const regexPlace = /^place\(\d\s?,\s?\d,\s?'?(SOUTH|NORTH|WEST|EAST)'?\)$/;
 
-export const isValidPlace = (input) => {
+const isValidPlace = (input) => {
     const regex = /^\(\d\s?,\s?\d,\s?'?(SOUTH|NORTH|WEST|EAST)'?\)$/;
     const parenthesesValue = '(' + input.split('(')[1];
     const gridUnit = 5
@@ -21,3 +21,5 @@ export const isValidPlace = (input) => {
         else return false 
     }
 }
+
+export default isValidPlace;
