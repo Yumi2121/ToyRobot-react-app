@@ -13,23 +13,27 @@ const Index = () => {
    
     // verifying all five commands to check if they are valid (through Regex) 
     const verifyCommand = (command) => {
+        let commandType = ''
         if (command.match(placeCommandMatch)) {
-            console.log(`Placed the robot at current position ${currentPosition}`);
-            return 'place';
+            commandType = 'place';
+        }
+         if (command.match(moveCommandMatch)) {
+            commandType = 'move'
+        } else if (command.match(leftCommandMatch)) {
+            commandType = 'left'
+        } else if (command.match(rightCommandMatch)) {
+            commandType=  'right'
+        } else if (command.match(reportCommandMatch)) {
+            commandType = 'report'
+        } else {
+            setUserMessage("Invalid command, please input the command with correct format!")
         }
 
-        if (!isPlaced) {
+        if (!isPlaced && commandType && commandType !== 'place') {
             setUserMessage("Robot is not placed yet. Please use valid place command firstly")
-        } else if (command.match(moveCommandMatch)) {
-            return 'move'
-        } else if (command.match(leftCommandMatch)) {
-            return 'left'
-        } else if (command.match(rightCommandMatch)) {
-            return 'right'
-        } else if (command.match(reportCommandMatch)) {
-            return 'report'
-        } else 
-            setUserMessage("Invalid command, please input the command with correct format!")
+        } else {
+            return commandType;
+        }
     }
 
     // if command is place, destructure the command get value of x, y and direction
@@ -152,7 +156,7 @@ const Index = () => {
                 setCommandList(prevState => [...prevState, inputValue])
                 break;
             default:
-                return;       
+                return;
         }
         setInptValue('')
     }
