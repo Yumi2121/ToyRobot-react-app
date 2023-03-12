@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { placeCommandMatch, moveCommandMatch, leftCommandMatch, rightCommandMatch, reportCommandMatch, gridSize } from "../tools/constants";
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
+import Accordion from 'react-bootstrap/Accordion';
+import ListGroup from 'react-bootstrap/ListGroup';
 
-import "./style.css";
 
 const Index = () => {
     const [inputValue, setInptValue] = useState('');
@@ -30,14 +33,14 @@ const Index = () => {
             commandType = 'report'
         } else {
             setUserMessage({
-                type: 'error',
+                type: 'danger',
                 text: "Invalid command, please input the command with correct format!"
             })
         }
 
         if (!isPlaced && commandType && commandType !== 'place') {
             setUserMessage({
-                type: 'error',
+                type: 'danger',
                 text: "Robot is not placed yet. Please use valid place command firstly"
             })
         } else {
@@ -64,7 +67,7 @@ const Index = () => {
         const {x, y, direction} = placeCommandProps(command);
         if (x > gridSize -1 || y > gridSize -1 || x<0 || y<0) {
             setUserMessage({
-                type: 'error',
+                type: 'danger',
                 text: `Invalid place, position was outside the table, please choose the valid posion within ${gridSize} X ${gridSize} unit`,
             })
             return;
@@ -78,7 +81,7 @@ const Index = () => {
         setIsPlaced(true);
         setUserMessage({
             type: 'success',
-            text: 'run successfully',
+            text: 'Function executed successfully.',
         });
     }
    
@@ -89,33 +92,33 @@ const Index = () => {
                 currentPosition.y < gridSize -1 && setCurrentPosition({...currentPosition, y: currentPosition.y + 1})
                 setUserMessage({
                     type: 'success',
-                    text: 'run successfully'
+                    text: 'Function executed successfully.'
                 });
                 break;
             case 'SOUTH':
                 currentPosition.y > 0 && setCurrentPosition({...currentPosition, y: currentPosition.y - 1})
                 setUserMessage({
                     type: 'success',
-                    text: 'run successfully',
+                    text: 'Function executed successfully.',
                 });
                 break;
             case 'EAST':
                 currentPosition.x < gridSize - 1 && setCurrentPosition({...currentPosition, x: currentPosition.x + 1})
                 setUserMessage({
                     type: 'success',
-                    text: 'run successfully'
+                    text: 'Function executed successfully.'
                 });
                 break;
             case 'WEST':
                 currentPosition.x > 0 && setCurrentPosition({...currentPosition, x: currentPosition.x - 1})
                 setUserMessage({
                     type: 'success',
-                    text: 'run successfully'
+                    text: 'Function executed successfully.'
                 });
                 break;
             default:
                 setUserMessage({
-                    type: 'success',
+                    type: 'danger',
                     text: 'Cannot move the robot, it will fall off the table!'
                 })
         }
@@ -169,14 +172,13 @@ const Index = () => {
             case 'move':
                 handleMove();
                 setCommandList(prevState => [...prevState, inputValue])
-                // ?????
                 break;
             case 'left':
                 handleDirecTurn('left')
                 setCommandList(prevState => [...prevState, inputValue])
                 setUserMessage({
                     type: 'success',
-                    text: 'run successfully'
+                    text: 'Function executed successfully.'
                 });
                 break;
             case 'right':
@@ -184,12 +186,12 @@ const Index = () => {
                 setCommandList(prevState => [...prevState, inputValue])
                 setUserMessage({
                     type: 'success',
-                    text: 'run successfully',
+                    text: 'Function executed successfully.',
                 });
                 break;
             case 'report':
                 setUserMessage({
-                    type: 'message',
+                    type: 'primary',
                     text: `${currentPosition.x}, ${currentPosition.y}, ${currentPosition.direction}`
                 });
                 setCommandList(prevState => [...prevState, inputValue])
@@ -206,24 +208,41 @@ const Index = () => {
         handleInputCommand(inputValue)
     }
 
+
     return (
         <>
-        <form className='form' onSubmit={handleSubmit}>
-            <label>
-                Enter input:
-                <input type="text" value={inputValue} onChange={(e) => {setInptValue(e.target.value)}} />
-            </label>
-            <Button className='btn-submit-form' variant="primary" type='submit'>Submit</Button>
-        </form>
+        <h1>Toy Robot</h1>
+        <Form className="form" onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+                {/* <Form.Label>Command</Form.Label> */}
+                <Form.Control type="text" value={inputValue} onChange={(e) => {setInptValue(e.target.value)}} placeholder="command eg: place(0, 0, 'NORTH')" />
+                <Form.Text className="text-muted">
+                    Please use the following format for commands: place(x, y, facing), move(), left(), right(), or report()."
+                </Form.Text>
+            </Form.Group>
 
-        <div className="commandList">
-        {commandList.map((item) =>
-            <div key={item}>{item}</div>
-        )}
-        </div>
-        <p style={{ color: userMessage.type === 'error' ? 'red' : userMessage.type === 'success' ? 'green' : 'blue' }}>
-            <b>{userMessage.text}</b>
-        </p>
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
+      
+        
+        <Alert className="alert" key={userMessage.type} variant={userMessage.type}>
+            {userMessage.text}
+        </Alert>
+
+        <Accordion  className="commandList" defaultActiveKey="0">
+            <Accordion.Item eventKey="0">
+                <Accordion.Header>Command History</Accordion.Header>
+                    <Accordion.Body>     
+                        <ListGroup as="ol" numbered>
+                        {commandList.map((item) =>
+                            <ListGroup.Item as="li">{item}</ListGroup.Item>
+                        )}
+                        </ListGroup>
+                    </Accordion.Body> 
+            </Accordion.Item>
+            </Accordion>
         </>
     )
 }

@@ -40,8 +40,29 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--color-bg);
-  color: var(--color-white);
+  background: white;
+  color: black;
   line-height: 1.7;
+  margin-left: 30px;
+}
+
+.alert {
+  width: 66%;
+  padding: 30px 10px 10px 30px;
+  margin-left: 30px;
+}
+
+.form {
+  width: 70%;
+  padding: 30px 10px 10px 30px;
+}
+
+.commandList{
+  width: 70%;
+  padding: 30px 10px 10px 30px;
+}
+
+h1 {
+  padding: 30px 10px 10px 30px;
 }
 
