@@ -240,8 +240,8 @@ const Index = () => {
         <h1>Toy Robot</h1>
         <Form className="form" onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
-                {/* <Form.Label>Command</Form.Label> */}
-                <Form.Control type="text" value={inputValue} onChange={(e) => {setInptValue(e.target.value)}} placeholder="command eg: place(0, 0, 'NORTH')" />
+                <Form.Label>Command</Form.Label>
+                <Form.Control type="text" value={inputValue} onChange={(e) => {setInptValue(e.target.value)}} placeholder="eg: place(0, 0, 'NORTH')" />
                 <Form.Text className="text-muted">
                     Please use the following format for commands: place(x, y, facing), move(), left(), right(), or report().
                 </Form.Text>
