@@ -79,6 +79,7 @@ const Index = () => {
             direction: direction.replace(/[']/g,""),
         })
         setIsPlaced(true);
+        setCommandList([inputValue]);
         setUserMessage({
             type: 'success',
             text: 'Function executed successfully.',
@@ -89,38 +90,63 @@ const Index = () => {
     const handleMove = () => {
         switch(currentPosition.direction) {
             case 'NORTH':
-                currentPosition.y < gridSize -1 && setCurrentPosition({...currentPosition, y: currentPosition.y + 1})
-                setUserMessage({
-                    type: 'success',
-                    text: 'Function executed successfully.'
-                });
+                if (currentPosition.y < gridSize -1 ) {
+                    setCurrentPosition({...currentPosition, y: currentPosition.y + 1})
+                    setUserMessage({
+                        type: 'success',
+                        text: 'Function executed successfully.'
+                    });
+                } else if (currentPosition.y === (gridSize -1)){
+                    setUserMessage({
+                        type: 'danger',
+                        text: 'Cannot move the robot, it will fall off the table!'
+                    });
+                }
                 break;
             case 'SOUTH':
-                currentPosition.y > 0 && setCurrentPosition({...currentPosition, y: currentPosition.y - 1})
-                setUserMessage({
-                    type: 'success',
-                    text: 'Function executed successfully.',
-                });
+                if (currentPosition.y > 0 ) {
+                    setCurrentPosition({...currentPosition, y: currentPosition.y - 1})
+                    setUserMessage({
+                        type: 'success',
+                        text: 'Function executed successfully.',
+                    });
+                } else if (currentPosition.y === 0) {
+                    setUserMessage({
+                        type: 'danger',
+                        text: 'Cannot move the robot, it will fall off the table!'
+                    })
+                }
                 break;
             case 'EAST':
-                currentPosition.x < gridSize - 1 && setCurrentPosition({...currentPosition, x: currentPosition.x + 1})
-                setUserMessage({
-                    type: 'success',
-                    text: 'Function executed successfully.'
-                });
+                if (currentPosition.x < gridSize - 1) {
+                    setCurrentPosition({...currentPosition, x: currentPosition.x + 1})
+                    setUserMessage({
+                        type: 'success',
+                        text: 'Function executed successfully.'
+                    });
+                } else if (currentPosition.x === (gridSize -1)){
+                    setUserMessage({
+                        type: 'danger',
+                        text: 'Cannot move the robot, it will fall off the table!'
+                    });
+                }
                 break;
             case 'WEST':
-                currentPosition.x > 0 && setCurrentPosition({...currentPosition, x: currentPosition.x - 1})
-                setUserMessage({
-                    type: 'success',
-                    text: 'Function executed successfully.'
-                });
+                if (currentPosition.x > 0) {
+                    setCurrentPosition({...currentPosition, x: currentPosition.x - 1})
+                    setUserMessage({
+                        type: 'success',
+                        text: 'Function executed successfully.'
+                    });
+                } else if (currentPosition.x === 0) {
+                    setUserMessage({
+                        type: 'danger',
+                        text: 'Cannot move the robot, it will fall off the table!'
+                    })
+                }
                 break;
             default:
-                setUserMessage({
-                    type: 'danger',
-                    text: 'Cannot move the robot, it will fall off the table!'
-                })
+                return;
         }
     }
 
@@ -217,7 +243,7 @@ const Index = () => {
                 {/* <Form.Label>Command</Form.Label> */}
                 <Form.Control type="text" value={inputValue} onChange={(e) => {setInptValue(e.target.value)}} placeholder="command eg: place(0, 0, 'NORTH')" />
                 <Form.Text className="text-muted">
-                    Please use the following format for commands: place(x, y, facing), move(), left(), right(), or report()."
+                    Please use the following format for commands: place(x, y, facing), move(), left(), right(), or report().
                 </Form.Text>
             </Form.Group>
 
