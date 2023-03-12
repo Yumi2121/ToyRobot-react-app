@@ -9,7 +9,10 @@ const Index = () => {
     const [isPlaced, setIsPlaced] = useState(false);
     const [currentPosition, setCurrentPosition] = useState({})
     const [commandList, setCommandList] = useState([]);
-    const [userMessage, setUserMessage] = useState('');
+    const [userMessage, setUserMessage] = useState({
+        type: '',
+        text: '',
+    });
    
     // verifying all five commands to check if they are valid (through Regex) 
     const verifyCommand = (command) => {
@@ -26,11 +29,17 @@ const Index = () => {
         } else if (command.match(reportCommandMatch)) {
             commandType = 'report'
         } else {
-            setUserMessage("Invalid command, please input the command with correct format!")
+            setUserMessage({
+                type: 'error',
+                text: "Invalid command, please input the command with correct format!"
+            })
         }
 
         if (!isPlaced && commandType && commandType !== 'place') {
-            setUserMessage("Robot is not placed yet. Please use valid place command firstly")
+            setUserMessage({
+                type: 'error',
+                text: "Robot is not placed yet. Please use valid place command firstly"
+            })
         } else {
             return commandType;
         }
@@ -54,7 +63,10 @@ const Index = () => {
     const handlePlaceRob = (command) => {
         const {x, y, direction} = placeCommandProps(command);
         if (x > gridSize -1 || y > gridSize -1 || x<0 || y<0) {
-            setUserMessage(`Invalid place, position was outside the table, please choose the valid posion within ${gridSize} X ${gridSize} unit`)
+            setUserMessage({
+                type: 'error',
+                text: `Invalid place, position was outside the table, please choose the valid posion within ${gridSize} X ${gridSize} unit`,
+            })
             return;
         }
         setCommandList(prevState => [...prevState, inputValue]);
@@ -64,7 +76,10 @@ const Index = () => {
             direction: direction.replace(/[']/g,""),
         })
         setIsPlaced(true);
-        setUserMessage('run successfully');
+        setUserMessage({
+            type: 'success',
+            text: 'run successfully',
+        });
     }
    
     // handle move 
@@ -72,22 +87,37 @@ const Index = () => {
         switch(currentPosition.direction) {
             case 'NORTH':
                 currentPosition.y < gridSize -1 && setCurrentPosition({...currentPosition, y: currentPosition.y + 1})
-                setUserMessage('run successfully');
+                setUserMessage({
+                    type: 'success',
+                    text: 'run successfully'
+                });
                 break;
             case 'SOUTH':
                 currentPosition.y > 0 && setCurrentPosition({...currentPosition, y: currentPosition.y - 1})
-                setUserMessage('run successfully');
+                setUserMessage({
+                    type: 'success',
+                    text: 'run successfully',
+                });
                 break;
             case 'EAST':
                 currentPosition.x < gridSize - 1 && setCurrentPosition({...currentPosition, x: currentPosition.x + 1})
-                setUserMessage('run successfully');
+                setUserMessage({
+                    type: 'success',
+                    text: 'run successfully'
+                });
                 break;
             case 'WEST':
                 currentPosition.x > 0 && setCurrentPosition({...currentPosition, x: currentPosition.x - 1})
-                setUserMessage('run successfully');
+                setUserMessage({
+                    type: 'success',
+                    text: 'run successfully'
+                });
                 break;
             default:
-                setUserMessage("Cannot move the robot, it will fall off the table!")
+                setUserMessage({
+                    type: 'success',
+                    text: 'Cannot move the robot, it will fall off the table!'
+                })
         }
     }
 
@@ -144,15 +174,24 @@ const Index = () => {
             case 'left':
                 handleDirecTurn('left')
                 setCommandList(prevState => [...prevState, inputValue])
-                setUserMessage('run successfully');
+                setUserMessage({
+                    type: 'success',
+                    text: 'run successfully'
+                });
                 break;
             case 'right':
                 handleDirecTurn('right')
                 setCommandList(prevState => [...prevState, inputValue])
-                setUserMessage('run successfully');
+                setUserMessage({
+                    type: 'success',
+                    text: 'run successfully',
+                });
                 break;
             case 'report':
-                setUserMessage(`${currentPosition.x}, ${currentPosition.y}, ${currentPosition.direction}`);
+                setUserMessage({
+                    type: 'message',
+                    text: `${currentPosition.x}, ${currentPosition.y}, ${currentPosition.direction}`
+                });
                 setCommandList(prevState => [...prevState, inputValue])
                 break;
             default:
@@ -182,9 +221,8 @@ const Index = () => {
             <div key={item}>{item}</div>
         )}
         </div>
-
-        <p style={{ color: "white" }}>
-            <b>{userMessage}</b>
+        <p style={{ color: userMessage.type === 'error' ? 'red' : userMessage.type === 'success' ? 'green' : 'blue' }}>
+            <b>{userMessage.text}</b>
         </p>
         </>
     )
