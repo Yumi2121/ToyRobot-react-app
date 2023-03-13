@@ -114,8 +114,6 @@ As it stands some features were not included due to time constraints and in futu
 
 - **Front-end**: REACT.JS, JavaScript, css and Bootstrap 
 
-- **Deployment**: Netify
-
 - **Project-management tools**: Trello
 
 - **DevOps**: Git, Github, VS Code
